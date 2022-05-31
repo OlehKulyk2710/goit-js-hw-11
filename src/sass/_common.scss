@@ -23,14 +23,18 @@ body {
 }
 
 .search-form > input {
-
+width: 200px;
 height: 30px;
+border-radius: 3px;
+
 
 }
 
 .search-form > button {
 width: 30px;
 height: 30px;
+border-radius: 3px;
+
 background-color: white;
 background-image: url('../images/icon-search.svg');
 background-position: center;
