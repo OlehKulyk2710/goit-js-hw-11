@@ -2,6 +2,7 @@ import { getData, elementsPerPage } from './js/axios';
 import { resetForm } from './js/reset-form';
 import { createMarkup } from './js/markup';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { smoothScroll } from './js/smooth-scroll';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
@@ -17,6 +18,7 @@ refs.gallery.addEventListener('click', event => event.preventDefault());
 
 let prevInputValue = '';
 let totalHits = 0;
+let pageCounter = 0;
 
 refs.searchForm.addEventListener('submit', onFormSubmit);
 
@@ -30,6 +32,7 @@ function onFormSubmit(event) {
   } else {
     refs.gallery.innerHTML = '';
     totalHits = 0;
+    pageCounter = 1;
   }
 
   prevInputValue = inputValue;
@@ -70,6 +73,10 @@ function makeRequest(inputValue) {
       refs.gallery.insertAdjacentHTML('beforeend', markup);
       gallery.refresh();
 
+      if (pageCounter >= 2) {
+        smoothScroll();
+      }
+
       if (data.length < elementsPerPage) {
         refs.btnLoadMore.classList.remove('isActive');
         Notify.success(
@@ -94,4 +101,5 @@ refs.btnLoadMore.addEventListener('click', onClickBtn);
 
 function onClickBtn() {
   makeRequest(prevInputValue);
+  pageCounter += 1;
 }

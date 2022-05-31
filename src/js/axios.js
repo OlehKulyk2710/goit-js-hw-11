@@ -39,6 +39,6 @@ async function getData(searchQuery) {
   }
 
   options.page += 1;
-
+  console.log(response);
   return response;
 }
